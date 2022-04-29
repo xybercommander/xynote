@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:xynote/data/services/auth.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({ Key? key }) : super(key: key);
@@ -15,8 +16,15 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _emailTextEditingController = TextEditingController();
   TextEditingController _passwordTextEditingController = TextEditingController();
 
+  AuthMethods authMethods = AuthMethods();
+
   //------ METHODS ------//
-  
+  void signUp() {
+    authMethods.signUpWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
+      .then((value) {
+        print("VALUE ------> " + value.toString());
+      });
+  }
 
 
   //------ UI -------//
@@ -40,9 +48,13 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               SizedBox(height: 16,),
               MaterialButton(
-                onPressed: () => print(_emailTextEditingController.text + " " + _passwordTextEditingController.text),
+                onPressed: () => signUp(),
                 child: Text("Sign up", style: TextStyle(color: Colors.white, fontSize: 18),),
                 color: Colors.black,
+              ),
+              TextButton(
+                onPressed: () {}, 
+                child: Text("Sign In", style: TextStyle(color: Colors.black),)
               )
             ],
           ),
