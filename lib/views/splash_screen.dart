@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:xynote/views/auth/sign_up_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({ Key? key }) : super(key: key);
@@ -9,6 +11,19 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+  void loadDataAndNavigate() {
+    Future.delayed(Duration(seconds: 3), () => {
+      Navigator.pushReplacement(context, PageTransition(child: SignUpPage(), type: PageTransitionType.rightToLeft))
+    });
+  }
+
+  @override
+  void initState() {    
+    super.initState();
+    loadDataAndNavigate();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
