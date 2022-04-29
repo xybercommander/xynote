@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "621524934965",
+    "project_id": "xynote-7a3a6",
+    "storage_bucket": "xynote-7a3a6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:621524934965:android:8183d62f9c8abf13f7ac7c",
+        "android_client_info": {
+          "package_name": "com.dev_xyber.xynote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "621524934965-pvpcsrh7rgqgkholq806c6l3gdhmu5hr.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.dev_xyber.xynote",
+            "certificate_hash": "5d78874236b49271840915a5837e25adffbd5f38"
+          }
+        },
+        {
+          "client_id": "621524934965-43svpdca692ln3j3e2br0m1f969fucvn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANhdKChcaw9x0nsR0k7aPAoFpwK9q1j_M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "621524934965-43svpdca692ln3j3e2br0m1f969fucvn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
