@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
 import 'package:xynote/data/services/auth.dart';
+import 'package:xynote/data/services/database.dart';
+import 'package:xynote/views/auth/auth_fetch_page.dart';
 import 'package:xynote/views/auth/sign_up_page.dart';
+
+import '../../data/providers/user_provider.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({ Key? key }) : super(key: key);
@@ -14,17 +20,25 @@ class _SignInPageState extends State<SignInPage> {
 
   //------ VARIABLES ------//
   final _formKey = GlobalKey<FormState>();
+  late Stream<QuerySnapshot> userStream;
   
   TextEditingController _emailTextEditingController = TextEditingController();
   TextEditingController _passwordTextEditingController = TextEditingController();
 
   AuthMethods authMethods = AuthMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
 
   //------ METHODS ------//
-  void signIn() {
+  void signIn() async {
+
+    userStream = await databaseMethods.getUserInfoByEmail(_emailTextEditingController.text);                
+
     authMethods.signInWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
-      .then((value) {
-        print("USER ID ------> " + value!.userId.toString());
+      .then((value) {        
+        Navigator.pushReplacement(context, PageTransition(
+          child: AuthFetchPage(userStream: userStream,),
+          type: PageTransitionType.rightToLeft
+        ));
       });
   }
 

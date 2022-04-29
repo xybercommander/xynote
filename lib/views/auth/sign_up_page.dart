@@ -5,6 +5,7 @@ import 'package:xynote/data/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/auth/sign_in_page.dart';
+import 'package:xynote/views/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({ Key? key }) : super(key: key);
@@ -37,6 +38,10 @@ class _SignUpPageState extends State<SignUpPage> {
         databaseMethods.uploadUserInfo(userMap);
         Provider.of<UserProvider>(context, listen: false).setEmail(_emailTextEditingController.text);
         Provider.of<UserProvider>(context, listen: false).setUsername(_usernameTextEditingController.text);
+        Navigator.pushReplacement(context, PageTransition(
+          child: HomePage(),
+          type: PageTransitionType.rightToLeft
+        ));
       });
   }
 
