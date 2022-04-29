@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:provider/provider.dart';
+import 'package:xynote/data/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
+import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/auth/sign_in_page.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -21,12 +24,19 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _confirmPasswordTextEditingController = TextEditingController();
 
   AuthMethods authMethods = AuthMethods();
+  DatabaseMethods databaseMethods = DatabaseMethods();
 
   //------ METHODS ------//
   void signUp() {
     authMethods.signUpWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
       .then((value) {
-        
+        Map<String, dynamic> userMap = {
+          "email": _emailTextEditingController.text,
+          "username": _usernameTextEditingController.text
+        };
+        databaseMethods.uploadUserInfo(userMap);
+        Provider.of<UserProvider>(context, listen: false).setEmail(_emailTextEditingController.text);
+        Provider.of<UserProvider>(context, listen: false).setUsername(_usernameTextEditingController.text);
       });
   }
 
