@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:xynote/data/services/auth.dart';
-import 'package:xynote/views/auth/sing_in_page.dart';
+import 'package:xynote/views/auth/sign_up_page.dart';
 
-class SignUpPage extends StatefulWidget {
-  const SignUpPage({ Key? key }) : super(key: key);
+class SignInPage extends StatefulWidget {
+  const SignInPage({ Key? key }) : super(key: key);
 
   @override
-  State<SignUpPage> createState() => _SignUpPageState();
+  State<SignInPage> createState() => _SignInPageState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignInPageState extends State<SignInPage> {
 
   //------ VARIABLES ------//
   final _formKey = GlobalKey<FormState>();
@@ -21,10 +21,10 @@ class _SignUpPageState extends State<SignUpPage> {
   AuthMethods authMethods = AuthMethods();
 
   //------ METHODS ------//
-  void signUp() {
-    authMethods.signUpWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
+  void signIn() {
+    authMethods.signInWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
       .then((value) {
-        print("VALUE ------> " + value.toString());
+        print("USER ID ------> " + value!.userId.toString());
       });
   }
 
@@ -50,16 +50,16 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               SizedBox(height: 16,),
               MaterialButton(
-                onPressed: () => signUp(),
-                child: Text("Sign up", style: TextStyle(color: Colors.white, fontSize: 18),),
+                onPressed: () => signIn(),
+                child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 18),),
                 color: Colors.black,
               ),
               TextButton(
                 onPressed: () => Navigator.pushReplacement(context, PageTransition(
-                  child: SignInPage(),
+                  child: SignUpPage(),
                   type: PageTransitionType.bottomToTop
                 )), 
-                child: Text("Sign In", style: TextStyle(color: Colors.black),)
+                child: Text("Sign Up", style: TextStyle(color: Colors.black),)
               )
             ],
           ),
