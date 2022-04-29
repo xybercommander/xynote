@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Lottie.asset("assets/animations/loading.json"),
-          Text('Loading', style: TextStyle(fontFamily: 'RobotoBold', fontSize: 18),)
+          SizedBox(height: 16,),
+          Text('Loading', style: TextStyle(fontSize: 24),)
         ],
       ),
     );
