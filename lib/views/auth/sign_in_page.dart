@@ -54,6 +54,13 @@ class _SignInPageState extends State<SignInPage> {
                 child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 18),),
                 color: Colors.black,
               ),
+              SizedBox(height: 4,),
+              MaterialButton(
+                onPressed: () => authMethods.signInWithGoogle().then((value) => print("USER CRED ----> " + value.additionalUserInfo!.username.toString())),
+                child: Text("Google", style: TextStyle(color: Colors.white, fontSize: 18),),
+                color: Colors.blue,
+              ),
+              SizedBox(height: 4,),
               TextButton(
                 onPressed: () => Navigator.pushReplacement(context, PageTransition(
                   child: SignUpPage(),

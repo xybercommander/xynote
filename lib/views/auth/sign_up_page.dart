@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:xynote/data/services/auth.dart';
-import 'package:xynote/views/auth/sing_in_page.dart';
+import 'package:xynote/views/auth/sign_in_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({ Key? key }) : super(key: key);
