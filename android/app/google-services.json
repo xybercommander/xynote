@@ -14,11 +14,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "621524934965-pvpcsrh7rgqgkholq806c6l3gdhmu5hr.apps.googleusercontent.com",
+          "client_id": "621524934965-5s33q3jfij36rtfcs7tcqcmagqdct02q.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.dev_xyber.xynote",
-            "certificate_hash": "5d78874236b49271840915a5837e25adffbd5f38"
+            "certificate_hash": "473a7d8958d48f1372b0429f3e6f352316fd81cc"
           }
         },
         {
