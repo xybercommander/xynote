@@ -65,10 +65,6 @@ class _SignInPageState extends State<SignInPage> {
               ),
               SizedBox(height: 4,),
               TextButton(
-                onPressed: () => authMethods.signOut(),
-                child: Text("Sign Out", style: TextStyle(color: Colors.black),)
-              ),
-              TextButton(
                 onPressed: () => Navigator.pushReplacement(context, PageTransition(
                   child: SignUpPage(),
                   type: PageTransitionType.bottomToTop

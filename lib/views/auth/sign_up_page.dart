@@ -15,8 +15,10 @@ class _SignUpPageState extends State<SignUpPage> {
   //------ VARIABLES ------//
   final _formKey = GlobalKey<FormState>();
   
+  TextEditingController _usernameTextEditingController = TextEditingController();
   TextEditingController _emailTextEditingController = TextEditingController();
   TextEditingController _passwordTextEditingController = TextEditingController();
+  TextEditingController _confirmPasswordTextEditingController = TextEditingController();
 
   AuthMethods authMethods = AuthMethods();
 
@@ -24,7 +26,7 @@ class _SignUpPageState extends State<SignUpPage> {
   void signUp() {
     authMethods.signUpWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
       .then((value) {
-        print("VALUE ------> " + value.toString());
+        
       });
   }
 
@@ -43,10 +45,16 @@ class _SignUpPageState extends State<SignUpPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               TextFormField(
+                controller: _usernameTextEditingController,
+              ),
+              TextFormField(
                 controller: _emailTextEditingController,
               ),
               TextFormField(
                 controller: _passwordTextEditingController,
+              ),
+              TextFormField(
+                controller: _confirmPasswordTextEditingController,
               ),
               SizedBox(height: 16,),
               MaterialButton(
