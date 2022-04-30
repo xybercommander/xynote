@@ -32,16 +32,16 @@ class _HomePageState extends State<HomePage> {
             Text(Provider.of<UserProvider>(context, listen: false).imageUrl),
             SizedBox(height: 8,),
             MaterialButton(
-                onPressed: () {
-                  authMethods.signOut();
-                  Navigator.pushReplacement(context, PageTransition(
-                    child: SignInPage(),
-                    type: PageTransitionType.leftToRight
-                  ));
-                },
-                child: Text("Sign Out", style: TextStyle(color: Colors.white),),
-                color: Colors.black,
-              ),
+              onPressed: () {
+                authMethods.signOut();
+                Navigator.pushReplacement(context, PageTransition(
+                  child: SignInPage(),
+                  type: PageTransitionType.leftToRight
+                ));
+              },
+              child: Text("Sign Out", style: TextStyle(color: Colors.white),),
+              color: Colors.black,
+            ),
           ],
         ),
       ),

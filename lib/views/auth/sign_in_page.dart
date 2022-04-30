@@ -8,6 +8,7 @@ import 'package:xynote/views/auth/auth_fetch_page.dart';
 import 'package:xynote/views/auth/sign_up_page.dart';
 
 import '../../data/providers/user_provider.dart';
+import '../home_page.dart';
 
 class SignInPage extends StatefulWidget {
   const SignInPage({ Key? key }) : super(key: key);
@@ -30,13 +31,30 @@ class _SignInPageState extends State<SignInPage> {
 
   //------ METHODS ------//
   void signIn() async {
-
     userStream = await databaseMethods.getUserInfoByEmail(_emailTextEditingController.text);                
-
     authMethods.signInWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
       .then((value) {        
         Navigator.pushReplacement(context, PageTransition(
           child: AuthFetchPage(userStream: userStream,),
+          type: PageTransitionType.rightToLeft
+        ));
+      });
+  }
+
+  void googleSignIn() {
+    authMethods.signInWithGoogle()
+      .then((value) {              
+        Provider.of<UserProvider>(context, listen: false).setEmail(value!.additionalUserInfo!.profile!['email']);
+        Provider.of<UserProvider>(context, listen: false).setUsername(value.additionalUserInfo!.profile!['given_name']);
+        Provider.of<UserProvider>(context, listen: false).setImageUrl(value.additionalUserInfo!.profile!['picture']);
+        Map<String, dynamic> userMap = {
+          "email": value.additionalUserInfo!.profile!['email'],
+          "username": value.additionalUserInfo!.profile!['given_name'],
+          "imgUrl": value.additionalUserInfo!.profile!['picture']
+        };
+        databaseMethods.uploadUserInfo(userMap);
+        Navigator.pushReplacement(context, PageTransition(
+          child: HomePage(),
           type: PageTransitionType.rightToLeft
         ));
       });
@@ -70,10 +88,7 @@ class _SignInPageState extends State<SignInPage> {
               ),
               SizedBox(height: 4,),
               MaterialButton(
-                onPressed: () => authMethods.signInWithGoogle()
-                                    .then((value) {
-                                      print(value!.additionalUserInfo.toString());
-                                    }),
+                onPressed: () => googleSignIn(),
                 child: Text("Google", style: TextStyle(color: Colors.white, fontSize: 18),),
                 color: Colors.blue,
               ),
@@ -84,7 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                   type: PageTransitionType.bottomToTop
                 )), 
                 child: Text("Sign Up", style: TextStyle(color: Colors.black),)
-              ),
+              ),              
             ],
           ),
         ),
