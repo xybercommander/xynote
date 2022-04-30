@@ -1,11 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:provider/provider.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/home_page.dart';
 
-import '../../data/providers/user_provider.dart';
 
 class GoogleAuthFetchPage extends StatefulWidget {
   final Stream<QuerySnapshot> userStream;
