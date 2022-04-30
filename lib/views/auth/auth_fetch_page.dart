@@ -31,6 +31,7 @@ class _AuthFetchPageState extends State<AuthFetchPage> {
           Future.delayed(Duration(seconds: 3), () {
             Provider.of<UserProvider>(context, listen: false).setEmail(documentSnapshot!['email']);
             Provider.of<UserProvider>(context, listen: false).setUsername(documentSnapshot!['username']);
+            Provider.of<UserProvider>(context, listen: false).setImageUrl(documentSnapshot!['imgUrl']);
             Navigator.pushReplacement(context, PageTransition(child: HomePage(), type: PageTransitionType.rightToLeft));
           });
 

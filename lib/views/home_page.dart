@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
@@ -21,15 +22,21 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,        
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(Provider.of<UserProvider>(context, listen: false).imageUrl),
+              backgroundColor: Colors.white,
+              radius: 50,
+            ),
             Text(Provider.of<UserProvider>(context, listen: false).email),
-            Text(Provider.of<UserProvider>(context, listen: false).username),
-            Text(Provider.of<UserProvider>(context, listen: false).imageUrl),
+            Text(Provider.of<UserProvider>(context, listen: false).username),            
             SizedBox(height: 8,),
             MaterialButton(
               onPressed: () {
