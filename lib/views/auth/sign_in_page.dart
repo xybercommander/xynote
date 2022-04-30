@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:xynote/data/services/auth.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/auth/auth_fetch_page.dart';
+import 'package:xynote/views/auth/google_auth_fetch_page.dart';
 import 'package:xynote/views/auth/sign_up_page.dart';
 
 import '../../data/providers/user_provider.dart';
@@ -43,18 +44,19 @@ class _SignInPageState extends State<SignInPage> {
 
   void googleSignIn() {
     authMethods.signInWithGoogle()
-      .then((value) {              
+      .then((value) async {
         Provider.of<UserProvider>(context, listen: false).setEmail(value!.additionalUserInfo!.profile!['email']);
         Provider.of<UserProvider>(context, listen: false).setUsername(value.additionalUserInfo!.profile!['given_name']);
         Provider.of<UserProvider>(context, listen: false).setImageUrl(value.additionalUserInfo!.profile!['picture']);
-        Map<String, dynamic> userMap = {
-          "email": value.additionalUserInfo!.profile!['email'],
-          "username": value.additionalUserInfo!.profile!['given_name'],
-          "imgUrl": value.additionalUserInfo!.profile!['picture']
-        };
-        databaseMethods.uploadUserInfo(userMap);
+
+        Stream<QuerySnapshot> userInfoSnapshot = await databaseMethods.getUserInfoByEmail(value.additionalUserInfo!.profile!['email']);           
         Navigator.pushReplacement(context, PageTransition(
-          child: HomePage(),
+          child: GoogleAuthFetchPage(
+            userStream: userInfoSnapshot,
+            email: value.additionalUserInfo!.profile!['email'],
+            username: value.additionalUserInfo!.profile!['given_name'],
+            imgUrl: value.additionalUserInfo!.profile!['picture'],
+          ),
           type: PageTransitionType.rightToLeft
         ));
       });
