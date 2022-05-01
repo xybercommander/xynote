@@ -4,6 +4,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/home_page.dart';
 
+import '../../data/helper/shared_preferences.dart';
+
 
 class GoogleAuthFetchPage extends StatefulWidget {
   final Stream<QuerySnapshot> userStream;
@@ -47,6 +49,11 @@ class __GoogleAuthFetchPageState extends State<GoogleAuthFetchPage> {
               };
               databaseMethods.uploadUserInfo(userMap);
             }
+            SharedPref.saveLoggedInSharedPreference(true);
+            SharedPref.saveEmailSharedPreference(widget.email!);
+            SharedPref.saveUsernameSharedPreference(widget.username!);
+            SharedPref.saveImgUrlSharedPreference(widget.imgUrl!);
+            
             Navigator.pushReplacement(context, PageTransition(child: HomePage(), type: PageTransitionType.rightToLeft));
           });
 

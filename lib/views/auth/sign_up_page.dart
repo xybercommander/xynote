@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:xynote/data/helper/shared_preferences.dart';
 import 'package:xynote/data/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
 import 'package:xynote/data/services/database.dart';
@@ -53,6 +54,11 @@ class _SignUpPageState extends State<SignUpPage> {
         Provider.of<UserProvider>(context, listen: false).setEmail(_emailTextEditingController.text);
         Provider.of<UserProvider>(context, listen: false).setUsername(_usernameTextEditingController.text);
         Provider.of<UserProvider>(context, listen: false).setImageUrl(imgUrl);
+        SharedPref.saveLoggedInSharedPreference(true);
+        SharedPref.saveEmailSharedPreference(_emailTextEditingController.text);
+        SharedPref.saveUsernameSharedPreference(_usernameTextEditingController.text);
+        SharedPref.saveImgUrlSharedPreference(imgUrl != '' ? imgUrl : '');
+        
         Navigator.pushReplacement(context, PageTransition(
           child: HomePage(),
           type: PageTransitionType.rightToLeft

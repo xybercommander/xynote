@@ -6,6 +6,8 @@ import 'package:xynote/data/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
 import 'package:xynote/views/auth/sign_in_page.dart';
 
+import '../data/helper/shared_preferences.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({ Key? key }) : super(key: key);
 
@@ -41,6 +43,10 @@ class _HomePageState extends State<HomePage> {
             MaterialButton(
               onPressed: () {
                 authMethods.signOut();
+                SharedPref.saveLoggedInSharedPreference(false);
+                SharedPref.saveEmailSharedPreference('');
+                SharedPref.saveUsernameSharedPreference('');
+                SharedPref.saveImgUrlSharedPreference('');
                 Navigator.pushReplacement(context, PageTransition(
                   child: SignInPage(),
                   type: PageTransitionType.leftToRight

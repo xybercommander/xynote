@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:xynote/views/home_page.dart';
 
+import '../../data/helper/shared_preferences.dart';
 import '../../data/providers/user_provider.dart';
 
 class AuthFetchPage extends StatefulWidget {
@@ -32,6 +33,11 @@ class _AuthFetchPageState extends State<AuthFetchPage> {
             Provider.of<UserProvider>(context, listen: false).setEmail(documentSnapshot!['email']);
             Provider.of<UserProvider>(context, listen: false).setUsername(documentSnapshot!['username']);
             Provider.of<UserProvider>(context, listen: false).setImageUrl(documentSnapshot!['imgUrl']);
+            SharedPref.saveLoggedInSharedPreference(true);
+            SharedPref.saveEmailSharedPreference(documentSnapshot!['email']);
+            SharedPref.saveUsernameSharedPreference(documentSnapshot!['username']);
+            SharedPref.saveImgUrlSharedPreference(documentSnapshot!['imgUrl']);
+            
             Navigator.pushReplacement(context, PageTransition(child: HomePage(), type: PageTransitionType.rightToLeft));
           });
 
