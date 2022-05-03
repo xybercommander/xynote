@@ -21,6 +21,7 @@ class SignInPage extends StatefulWidget {
 class _SignInPageState extends State<SignInPage> {
 
   //------ VARIABLES ------//
+  bool showPassword = false;
   final _formKey = GlobalKey<FormState>();
   late Stream<QuerySnapshot> userStream;
   
@@ -70,38 +71,128 @@ class _SignInPageState extends State<SignInPage> {
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 32),
+        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 56),
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextFormField(
-                controller: _emailTextEditingController,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [              
+              Container(
+                child: Column(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width / 3,
+                      height: MediaQuery.of(context).size.width / 3,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        image: DecorationImage(
+                          image: AssetImage("assets/images/xynote_black.png")
+                        )
+                      ),
+                    ),              
+                    Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 22, fontFamily: 'RobotoSlabBold'),),
+                  ],
+                ),
               ),
-              TextFormField(
-                controller: _passwordTextEditingController,
-              ),
-              SizedBox(height: 16,),
-              MaterialButton(
-                onPressed: () => signIn(),
-                child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 18),),
-                color: Colors.black,
-              ),
-              SizedBox(height: 4,),
-              MaterialButton(
-                onPressed: () => googleSignIn(),
-                child: Text("Google", style: TextStyle(color: Colors.white, fontSize: 18),),
-                color: Colors.blue,
-              ),
-              SizedBox(height: 4,),
-              TextButton(
-                onPressed: () => Navigator.pushReplacement(context, PageTransition(
-                  child: SignUpPage(),
-                  type: PageTransitionType.bottomToTop
-                )), 
-                child: Text("Sign Up", style: TextStyle(color: Colors.black),)
-              ),              
+              Container(
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _emailTextEditingController,
+                      style: TextStyle(color: Colors.black),
+                      cursorColor: Colors.black,
+                      decoration: InputDecoration(
+                        labelText: "Email",
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18),
+                        prefixIcon: Image.asset("assets/icons/mail.png"),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5), 
+                          borderSide: BorderSide(color: Colors.black, width: 2.5)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5), 
+                          borderSide: BorderSide(color: Colors.black, width: 2.5)
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 12,),
+                    TextFormField(
+                      controller: _passwordTextEditingController,
+                      cursorColor: Colors.black,
+                      obscureText: !showPassword,
+                      decoration: InputDecoration(
+                        labelText: "Password",
+                        labelStyle: TextStyle(color: Colors.black, fontSize: 18),
+                        prefixIcon: Image.asset("assets/icons/lock.png"),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              showPassword = !showPassword;
+                            });
+                          }, 
+                          icon: Image.asset(showPassword == false ? "assets/icons/eye.png" : "assets/icons/eye-off.png")
+                        ),
+                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5), 
+                          borderSide: BorderSide(color: Colors.black, width: 2.5)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5), 
+                          borderSide: BorderSide(color: Colors.black, width: 2.5)
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16,),
+                    SizedBox(
+                      height: 48,
+                      width: MediaQuery.of(context).size.width,
+                      child: MaterialButton(
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                        onPressed: () => signIn(),
+                        child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 20),),
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 4,),
+                    SizedBox(
+                      height: 48,
+                      width: MediaQuery.of(context).size.width,
+                      child: TextButton(
+                        onPressed: () => Navigator.pushReplacement(context, PageTransition(
+                          child: SignUpPage(),
+                          type: PageTransitionType.bottomToTop
+                        )),                 
+                        child: Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 20),)
+                      ),
+                    ),
+                    SizedBox(height: 16,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          height: 2,
+                          width: MediaQuery.of(context).size.width / 3.5,
+                          color: Colors.black,
+                        ),
+                        Text("OR", style: TextStyle(color: Colors.black, fontSize: 32, fontFamily: 'RobotoSlabBold'),),
+                        Container(
+                          height: 2,
+                          width: MediaQuery.of(context).size.width / 3.5,                  
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 16,),
+                    MaterialButton(
+                      onPressed: () => googleSignIn(),
+                      child: Text("Google", style: TextStyle(color: Colors.white, fontSize: 18),),
+                      color: Colors.blue,
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),

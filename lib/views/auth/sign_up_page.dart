@@ -123,6 +123,10 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 4,),
               TextFormField(
                 controller: _usernameTextEditingController,
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  
+                ),
               ),
               TextFormField(
                 controller: _emailTextEditingController,
