@@ -185,10 +185,15 @@ class _SignInPageState extends State<SignInPage> {
                       ],
                     ),
                     SizedBox(height: 16,),
-                    MaterialButton(
-                      onPressed: () => googleSignIn(),
-                      child: Text("Google", style: TextStyle(color: Colors.white, fontSize: 18),),
-                      color: Colors.blue,
+                    SizedBox(
+                      height: 48,
+                      width: MediaQuery.of(context).size.width,
+                      child: MaterialButton(                      
+                        onPressed: () => googleSignIn(),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                        child: Text("Login With Google", style: TextStyle(color: Colors.white, fontSize: 20),),
+                        color: Colors.blue,
+                      ),
                     ),
                   ],
                 ),
