@@ -179,7 +179,7 @@ class _SignInPageState extends State<SignInPage> {
                               onPressed: () => Navigator.pushReplacement(context, PageTransition(
                                 child: SignUpPage(),
                                 type: PageTransitionType.bottomToTop
-                              )),                 
+                              )),
                               child: Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 18),)
                             ),
                           ),
