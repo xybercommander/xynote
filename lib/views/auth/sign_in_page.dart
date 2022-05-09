@@ -81,16 +81,16 @@ class _SignInPageState extends State<SignInPage> {
                 child: Column(
                   children: [
                     Container(
-                      width: MediaQuery.of(context).size.width / 3,
-                      height: MediaQuery.of(context).size.width / 3,
+                      width: MediaQuery.of(context).size.width / 3.5,
+                      height: MediaQuery.of(context).size.width / 3.5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                         image: DecorationImage(
                           image: AssetImage("assets/images/xynote_black.png")
                         )
                       ),
-                    ),              
-                    Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 22, fontFamily: 'RobotoSlabBold'),),
+                    ),
+                    Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'RobotoSlabBold'),),
                   ],
                 ),
               ),
