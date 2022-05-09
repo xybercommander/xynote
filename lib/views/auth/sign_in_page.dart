@@ -68,137 +68,163 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.symmetric(horizontal: 32, vertical: 56),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [              
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width / 3.5,
-                      height: MediaQuery.of(context).size.width / 3.5,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        image: DecorationImage(
-                          image: AssetImage("assets/images/xynote_black.png")
-                        )
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [              
+                Container(
+                  child: Column(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width / 4,
+                        height: MediaQuery.of(context).size.width / 4,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          image: DecorationImage(
+                            image: AssetImage("assets/images/xynote_black.png")
+                          )
+                        ),
                       ),
-                    ),
-                    Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 20, fontFamily: 'RobotoSlabBold'),),
-                  ],
+                      Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'RobotoSlabBold'),),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                child: Column(
-                  children: [
-                    TextFormField(
-                      controller: _emailTextEditingController,
-                      style: TextStyle(color: Colors.black),
-                      cursorColor: Colors.black,
-                      decoration: InputDecoration(
-                        labelText: "Email",
-                        labelStyle: TextStyle(color: Colors.black, fontSize: 18),
-                        prefixIcon: Image.asset("assets/icons/mail.png"),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5), 
-                          borderSide: BorderSide(color: Colors.black, width: 2.5)
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5), 
-                          borderSide: BorderSide(color: Colors.black, width: 2.5)
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 12,),
-                    TextFormField(
-                      controller: _passwordTextEditingController,
-                      cursorColor: Colors.black,
-                      obscureText: !showPassword,
-                      decoration: InputDecoration(
-                        labelText: "Password",
-                        labelStyle: TextStyle(color: Colors.black, fontSize: 18),
-                        prefixIcon: Image.asset("assets/icons/lock.png"),
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              showPassword = !showPassword;
-                            });
-                          }, 
-                          icon: Image.asset(showPassword == false ? "assets/icons/eye.png" : "assets/icons/eye-off.png")
-                        ),
-                        border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5), 
-                          borderSide: BorderSide(color: Colors.black, width: 2.5)
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5), 
-                          borderSide: BorderSide(color: Colors.black, width: 2.5)
+                Container(
+                  child: Column(
+                    children: [
+                      TextFormField(
+                        controller: _emailTextEditingController,
+                        style: TextStyle(color: Colors.black, fontSize: 13),
+                        cursorColor: Colors.black,
+                        decoration: InputDecoration(
+                          labelText: "Email",
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                          prefixIcon: Image.asset("assets/icons/mail.png"),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5), 
+                            borderSide: BorderSide(color: Colors.black, width: 2.5)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5), 
+                            borderSide: BorderSide(color: Colors.black, width: 2.5)
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 16,),
-                    SizedBox(
-                      height: 48,
-                      width: MediaQuery.of(context).size.width,
-                      child: MaterialButton(
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        onPressed: () => signIn(),
-                        child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 20),),
-                        color: Colors.black,
+                      SizedBox(height: 12,),
+                      TextFormField(
+                        controller: _passwordTextEditingController,
+                        style: TextStyle(color: Colors.black, fontSize: 13),
+                        cursorColor: Colors.black,
+                        obscureText: !showPassword,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                          prefixIcon: Image.asset("assets/icons/lock.png"),
+                          suffixIcon: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                showPassword = !showPassword;
+                              });
+                            }, 
+                            icon: Image.asset(showPassword == false ? "assets/icons/eye.png" : "assets/icons/eye-off.png")
+                          ),
+                          border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5), 
+                            borderSide: BorderSide(color: Colors.black, width: 2.5)
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5), 
+                            borderSide: BorderSide(color: Colors.black, width: 2.5)
+                          ),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: 4,),
-                    SizedBox(
-                      height: 48,
-                      width: MediaQuery.of(context).size.width,
-                      child: TextButton(
-                        onPressed: () => Navigator.pushReplacement(context, PageTransition(
-                          child: SignUpPage(),
-                          type: PageTransitionType.bottomToTop
-                        )),                 
-                        child: Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 20),)
-                      ),
-                    ),
-                    SizedBox(height: 16,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          height: 2,
-                          width: MediaQuery.of(context).size.width / 3.5,
+                      SizedBox(height: 16,),
+                      SizedBox(
+                        height: 40,
+                        width: MediaQuery.of(context).size.width,
+                        child: MaterialButton(
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                          onPressed: () => signIn(),
+                          child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 18),),
                           color: Colors.black,
                         ),
-                        Text("OR", style: TextStyle(color: Colors.black, fontSize: 32, fontFamily: 'RobotoSlabBold'),),
-                        Container(
-                          height: 2,
-                          width: MediaQuery.of(context).size.width / 3.5,                  
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 16,),
-                    SizedBox(
-                      height: 48,
-                      width: MediaQuery.of(context).size.width,
-                      child: MaterialButton(                      
-                        onPressed: () => googleSignIn(),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                        child: Text("Login With Google", style: TextStyle(color: Colors.white, fontSize: 20),),
-                        color: Colors.blue,
                       ),
-                    ),
-                  ],
-                ),
-              )
-            ],
+                      SizedBox(height: 4,),
+                      SizedBox(
+                        height: 40,
+                        width: MediaQuery.of(context).size.width,
+                        child: TextButton(
+                          onPressed: () => Navigator.pushReplacement(context, PageTransition(
+                            child: SignUpPage(),
+                            type: PageTransitionType.bottomToTop
+                          )),                 
+                          child: Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 18),)
+                        ),
+                      ),
+                      SizedBox(height: 16,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Container(
+                            height: 2,
+                            width: MediaQuery.of(context).size.width / 3.5,
+                            color: Colors.black,
+                          ),
+                          Text("OR", style: TextStyle(color: Colors.black, fontSize: 26, fontFamily: 'RobotoSlabBold'),),
+                          Container(
+                            height: 2,
+                            width: MediaQuery.of(context).size.width / 3.5,                  
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 16,),
+                      InkWell(
+                        onTap: () => googleSignIn(),
+                        child: Container(                      
+                          height: 40,
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(horizontal: 4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.blue,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                height: 34,
+                                width: 34,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(5)
+                                ),
+                                child: Center(
+                                  child: Image.asset("assets/images/google_logo.png", height: 30, width: 30,),
+                                ),
+                              ),
+                              Text("Login With Google", style: TextStyle(color: Colors.white, fontSize: 18),),
+                              Container(
+                                height: 40,
+                                width: 34,
+                              )
+                            ],
+                          ), 
+                        ),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
