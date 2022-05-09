@@ -23,6 +23,7 @@ class SignUpPage extends StatefulWidget {
 class _SignUpPageState extends State<SignUpPage> {
 
   //------ VARIABLES ------//
+  bool showPassword = false;
   final _formKey = GlobalKey<FormState>();
   
   TextEditingController _usernameTextEditingController = TextEditingController();
@@ -123,19 +124,89 @@ class _SignUpPageState extends State<SignUpPage> {
               SizedBox(height: 4,),
               TextFormField(
                 controller: _usernameTextEditingController,
+                style: TextStyle(color: Colors.black, fontSize: 13),
                 cursorColor: Colors.black,
                 decoration: InputDecoration(
-                  
+                  labelText: "Username",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                  prefixIcon: Image.asset("assets/icons/mail.png"),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
                 ),
               ),
               TextFormField(
                 controller: _emailTextEditingController,
+                style: TextStyle(color: Colors.black, fontSize: 13),
+                cursorColor: Colors.black,
+                decoration: InputDecoration(
+                  labelText: "Email",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                  prefixIcon: Image.asset("assets/icons/mail.png"),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                ),
               ),
               TextFormField(
                 controller: _passwordTextEditingController,
+                style: TextStyle(color: Colors.black, fontSize: 13),
+                cursorColor: Colors.black,
+                obscureText: !showPassword,
+                decoration: InputDecoration(
+                  labelText: "Password",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                  prefixIcon: Image.asset("assets/icons/lock.png"),
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        showPassword = !showPassword;
+                      });
+                    }, 
+                    icon: Image.asset(showPassword == false ? "assets/icons/eye.png" : "assets/icons/eye-off.png")
+                  ),
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                ),
               ),
               TextFormField(
                 controller: _confirmPasswordTextEditingController,
+                style: TextStyle(color: Colors.black, fontSize: 13),
+                cursorColor: Colors.black,
+                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: "Confirm Password",
+                  labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                  prefixIcon: Image.asset("assets/icons/lock.png"),                  
+                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(5), 
+                    borderSide: BorderSide(color: Colors.black, width: 2.5)
+                  ),
+                ),
               ),
               SizedBox(height: 16,),
               MaterialButton(
