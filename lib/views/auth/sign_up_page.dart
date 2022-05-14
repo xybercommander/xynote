@@ -7,6 +7,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 import 'package:xynote/data/helper/shared_preferences.dart';
 import 'package:xynote/data/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
@@ -46,12 +47,15 @@ class _SignUpPageState extends State<SignUpPage> {
       await uploadPic();
     }
 
+    String uuid = Uuid().v4();
+
     authMethods.signUpWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
       .then((value) {        
         Map<String, dynamic> userMap = {
           "email": _emailTextEditingController.text,
           "username": _usernameTextEditingController.text,          
           'imgUrl': imgUrl != '' ? imgUrl : '',
+          'uuid': uuid
         };
         databaseMethods.uploadUserInfo(userMap);
         Provider.of<UserProvider>(context, listen: false).setEmail(_emailTextEditingController.text);

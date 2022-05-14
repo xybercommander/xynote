@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:uuid/uuid.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/home_page.dart';
 
@@ -41,11 +42,13 @@ class __GoogleAuthFetchPageState extends State<GoogleAuthFetchPage> {
           if (snapshot.hasData) dataLength = (snapshot.data! as QuerySnapshot).docs.length;            
 
           Future.delayed(Duration(seconds: 3), () {                        
-            if (dataLength == 0) {              
+            if (dataLength == 0) {      
+              String uuid = Uuid().v4();        
               Map<String, dynamic> userMap = {
                 "email": widget.email,
                 "username": widget.username,
-                "imgUrl": widget.imgUrl
+                "imgUrl": widget.imgUrl,
+                'uuid': uuid
               };
               databaseMethods.uploadUserInfo(userMap);
             }
