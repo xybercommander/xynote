@@ -121,180 +121,183 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,        
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/Bg.PNG"),
-            fit: BoxFit.cover
-          )
-        ),
-        child: BackdropFilter(
-          filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            padding: EdgeInsets.symmetric(horizontal: 32, vertical: 56),
-            color: Colors.white.withOpacity(0.8),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    child: Column(                  
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width / 4,
-                          height: MediaQuery.of(context).size.width / 4,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            image: DecorationImage(
-                              image: AssetImage("assets/images/xynote_black.png")
-                            )
-                          ),
-                        ),
-                        Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'RobotoSlabBold'),),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            CircleAvatar(                    
-                              backgroundImage: _image != null 
-                                  ? FileImage(_image!) 
-                                  : AssetImage("assets/images/profile_pic.jpg") as ImageProvider,
-                              backgroundColor: Colors.white,
-                              radius: 40,
+      // resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,        
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage("assets/images/Bg.PNG"),
+              fit: BoxFit.cover
+            )
+          ),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+            child: Container(
+              width: MediaQuery.of(context).size.width,
+              height: MediaQuery.of(context).size.height,
+              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 56),
+              color: Colors.white.withOpacity(0.8),
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      child: Column(                  
+                        children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width / 4,
+                            height: MediaQuery.of(context).size.width / 4,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: AssetImage("assets/images/xynote_black.png")
+                              )
                             ),
-                            MaterialButton(
-                              onPressed: () => getImage(),
-                              child: Text("Add Image", style: TextStyle(color: Colors.white),),
+                          ),
+                          Text("X y n o t e", style: TextStyle(color: Colors.black, fontSize: 18, fontFamily: 'RobotoSlabBold'),),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircleAvatar(                    
+                                backgroundImage: _image != null 
+                                    ? FileImage(_image!) 
+                                    : AssetImage("assets/images/profile_pic.jpg") as ImageProvider,
+                                backgroundColor: Colors.white,
+                                radius: 40,
+                              ),
+                              MaterialButton(
+                                onPressed: () => getImage(),
+                                child: Text("Add Image", style: TextStyle(color: Colors.white),),
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8,),
+                          TextFormField(
+                            controller: _usernameTextEditingController,
+                            style: TextStyle(color: Colors.black, fontSize: 13),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Username",
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                              prefixIcon: Image.asset("assets/icons/mail.png"),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12,),
+                          TextFormField(
+                            controller: _emailTextEditingController,
+                            style: TextStyle(color: Colors.black, fontSize: 13),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Email",
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                              prefixIcon: Image.asset("assets/icons/mail.png"),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12,),
+                          TextFormField(
+                            controller: _passwordTextEditingController,
+                            style: TextStyle(color: Colors.black, fontSize: 13),
+                            cursorColor: Colors.black,
+                            obscureText: !showPassword,
+                            decoration: InputDecoration(
+                              labelText: "Password",
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                              prefixIcon: Image.asset("assets/icons/lock.png"),
+                              suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showPassword = !showPassword;
+                                  });
+                                }, 
+                                icon: Image.asset(showPassword == false ? "assets/icons/eye.png" : "assets/icons/eye-off.png")
+                              ),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12,),
+                          TextFormField(
+                            controller: _confirmPasswordTextEditingController,
+                            style: TextStyle(color: Colors.black, fontSize: 13),
+                            cursorColor: Colors.black,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: "Confirm Password",
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                              prefixIcon: Image.asset("assets/icons/lock.png"),                  
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 16,),
+                          SizedBox(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: MaterialButton(
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+                              onPressed: () => signUp(),
+                              child: Text("Sign up", style: TextStyle(color: Colors.white, fontSize: 18),),
                               color: Colors.black,
                             ),
-                          ],
-                        ),
-                        SizedBox(height: 8,),
-                        TextFormField(
-                          controller: _usernameTextEditingController,
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            labelText: "Username",
-                            labelStyle: TextStyle(color: Colors.black, fontSize: 14),
-                            prefixIcon: Image.asset("assets/icons/mail.png"),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
+                          ),
+                          SizedBox(
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: TextButton(
+                              onPressed: () => Navigator.pushReplacement(context, PageTransition(
+                                child: SignInPage(),
+                                type: PageTransitionType.bottomToTop
+                              )),
+                              child: Text("Sign in", style: TextStyle(color: Colors.black, fontSize: 18),)
                             ),
                           ),
-                        ),
-                        SizedBox(height: 12,),
-                        TextFormField(
-                          controller: _emailTextEditingController,
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                          cursorColor: Colors.black,
-                          decoration: InputDecoration(
-                            labelText: "Email",
-                            labelStyle: TextStyle(color: Colors.black, fontSize: 14),
-                            prefixIcon: Image.asset("assets/icons/mail.png"),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 12,),
-                        TextFormField(
-                          controller: _passwordTextEditingController,
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                          cursorColor: Colors.black,
-                          obscureText: !showPassword,
-                          decoration: InputDecoration(
-                            labelText: "Password",
-                            labelStyle: TextStyle(color: Colors.black, fontSize: 14),
-                            prefixIcon: Image.asset("assets/icons/lock.png"),
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  showPassword = !showPassword;
-                                });
-                              }, 
-                              icon: Image.asset(showPassword == false ? "assets/icons/eye.png" : "assets/icons/eye-off.png")
-                            ),
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 12,),
-                        TextFormField(
-                          controller: _confirmPasswordTextEditingController,
-                          style: TextStyle(color: Colors.black, fontSize: 13),
-                          cursorColor: Colors.black,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            labelText: "Confirm Password",
-                            labelStyle: TextStyle(color: Colors.black, fontSize: 14),
-                            prefixIcon: Image.asset("assets/icons/lock.png"),                  
-                            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(5), 
-                              borderSide: BorderSide(color: Colors.black, width: 2.5)
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 16,),
-                        SizedBox(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          child: MaterialButton(
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                            onPressed: () => signUp(),
-                            child: Text("Sign up", style: TextStyle(color: Colors.white, fontSize: 18),),
-                            color: Colors.black,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          child: TextButton(
-                            onPressed: () => Navigator.pushReplacement(context, PageTransition(
-                              child: SignInPage(),
-                              type: PageTransitionType.bottomToTop
-                            )),
-                            child: Text("Sign in", style: TextStyle(color: Colors.black, fontSize: 18),)
-                          ),
-                        ),                        
-                      ],
-                    ),
-                  )
-                ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
