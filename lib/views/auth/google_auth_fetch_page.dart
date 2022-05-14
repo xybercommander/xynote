@@ -4,6 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:uuid/uuid.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/accounts_page.dart';
+import 'package:xynote/views/notes_page.dart';
 
 import '../../data/helper/shared_preferences.dart';
 
@@ -57,7 +58,7 @@ class __GoogleAuthFetchPageState extends State<GoogleAuthFetchPage> {
             SharedPref.saveUsernameSharedPreference(widget.username!);
             SharedPref.saveImgUrlSharedPreference(widget.imgUrl!);
             
-            Navigator.pushReplacement(context, PageTransition(child: AccountsPage(), type: PageTransitionType.rightToLeft));
+            Navigator.pushReplacement(context, PageTransition(child: NotesPage(), type: PageTransitionType.rightToLeft));
           });
 
           return Center(
