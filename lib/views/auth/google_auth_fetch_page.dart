@@ -62,7 +62,7 @@ class __GoogleAuthFetchPageState extends State<GoogleAuthFetchPage> {
           });
 
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Colors.black,),
           );
         },         
       ),

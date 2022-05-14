@@ -43,7 +43,7 @@ class _AuthFetchPageState extends State<AuthFetchPage> {
           });
 
           return Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(color: Colors.black),
           );
         },         
       ),
