@@ -8,14 +8,14 @@ import 'package:xynote/views/auth/sign_in_page.dart';
 
 import '../data/helper/shared_preferences.dart';
 
-class AccountsPage() extends StatefulWidget {
-  const AccountsPage()({ Key? key }) : super(key: key);
+class AccountsPage extends StatefulWidget {
+  const AccountsPage({ Key? key }) : super(key: key);
 
   @override
-  State<AccountsPage()> createState() => _AccountsPage()State();
+  State<AccountsPage> createState() => _AccountsPageState();
 }
 
-class _AccountsPage()State extends State<AccountsPage()> {
+class _AccountsPageState extends State<AccountsPage> {
 
   //------ VARIABLES ------//
   AuthMethods authMethods = AuthMethods();
