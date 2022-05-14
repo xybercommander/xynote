@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:xynote/views/home_page.dart';
+import 'package:xynote/views/accounts_page.dart';
 
 import '../../data/helper/shared_preferences.dart';
 import '../../data/providers/user_provider.dart';
@@ -38,7 +38,7 @@ class _AuthFetchPageState extends State<AuthFetchPage> {
             SharedPref.saveUsernameSharedPreference(documentSnapshot!['username']);
             SharedPref.saveImgUrlSharedPreference(documentSnapshot!['imgUrl']);
             
-            Navigator.pushReplacement(context, PageTransition(child: HomePage(), type: PageTransitionType.rightToLeft));
+            Navigator.pushReplacement(context, PageTransition(child: AccountsPage(), type: PageTransitionType.rightToLeft));
           });
 
           return Center(

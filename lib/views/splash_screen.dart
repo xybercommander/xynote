@@ -6,7 +6,7 @@ import 'package:xynote/data/helper/shared_preferences.dart';
 import 'package:xynote/data/providers/user_provider.dart';
 import 'package:xynote/views/auth/sign_in_page.dart';
 import 'package:xynote/views/auth/sign_up_page.dart';
-import 'package:xynote/views/home_page.dart';
+import 'package:xynote/views/accounts_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({ Key? key }) : super(key: key);
@@ -30,7 +30,7 @@ class _SplashScreenState extends State<SplashScreen> {
         Provider.of<UserProvider>(context, listen: false).setEmail(email!),
         Provider.of<UserProvider>(context, listen: false).setUsername(username!),
         Provider.of<UserProvider>(context, listen: false).setImageUrl(imgUrl!),
-        Navigator.pushReplacement(context, PageTransition(child: HomePage(), type: PageTransitionType.rightToLeft))
+        Navigator.pushReplacement(context, PageTransition(child: AccountsPage(), type: PageTransitionType.rightToLeft))
       }       
     });
   }

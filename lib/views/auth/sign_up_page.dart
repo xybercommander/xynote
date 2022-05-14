@@ -14,7 +14,7 @@ import 'package:xynote/data/services/auth.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/auth/google_auth_fetch_page.dart';
 import 'package:xynote/views/auth/sign_in_page.dart';
-import 'package:xynote/views/home_page.dart';
+import 'package:xynote/views/accounts_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({ Key? key }) : super(key: key);
@@ -67,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
         SharedPref.saveImgUrlSharedPreference(imgUrl != '' ? imgUrl : '');
         
         Navigator.pushReplacement(context, PageTransition(
-          child: HomePage(),
+          child: AccountsPage(),
           type: PageTransitionType.rightToLeft
         ));
       });
