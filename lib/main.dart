@@ -1,7 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:xynote/data/providers/notes_provider.dart';
 import 'package:xynote/data/providers/user_provider.dart';
-import 'package:xynote/views/splash_screen.dart';
+import 'package:xynote/views/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -11,7 +12,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => UserProvider(),)
+        ChangeNotifierProvider(create: (context) => UserProvider(),),
+        ChangeNotifierProvider(create: (context) => NotesProvider(),)
       ],
       child: MyApp(),
     )

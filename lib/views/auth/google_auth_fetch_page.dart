@@ -4,7 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:uuid/uuid.dart';
 import 'package:xynote/data/services/database.dart';
 import 'package:xynote/views/accounts_page.dart';
-import 'package:xynote/views/notes_page.dart';
+import 'package:xynote/views/notes/notes_page.dart';
 
 import '../../data/helper/shared_preferences.dart';
 
