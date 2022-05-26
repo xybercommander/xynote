@@ -52,7 +52,7 @@ class _SignInPageState extends State<SignInPage> {
         Provider.of<UserProvider>(context, listen: false).setUsername(value.additionalUserInfo!.profile!['given_name']);
         Provider.of<UserProvider>(context, listen: false).setImageUrl(value.additionalUserInfo!.profile!['picture']);
 
-        Stream<QuerySnapshot> userInfoSnapshot = await databaseMethods.getUserInfoByEmail(value.additionalUserInfo!.profile!['email']);           
+        Stream<QuerySnapshot> userInfoSnapshot = await databaseMethods.getUserInfoByEmail(value.additionalUserInfo!.profile!['email']);
         Navigator.pushReplacement(context, PageTransition(
           child: GoogleAuthFetchPage(
             userStream: userInfoSnapshot,
