@@ -2,11 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:uuid/uuid.dart';
+import 'package:xynote/data/helper/shared_preferences.dart';
 import 'package:xynote/data/services/database.dart';
-import 'package:xynote/views/accounts_page.dart';
 import 'package:xynote/views/notes/notes_page.dart';
-
-import '../../data/helper/shared_preferences.dart';
 
 
 class GoogleAuthFetchPage extends StatefulWidget {

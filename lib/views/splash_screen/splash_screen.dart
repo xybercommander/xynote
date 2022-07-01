@@ -3,13 +3,9 @@ import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:xynote/data/helper/shared_preferences.dart';
-import 'package:xynote/data/providers/user_provider.dart';
-import 'package:xynote/views/auth/sign_in_page.dart';
-import 'package:xynote/views/auth/sign_up_page.dart';
-import 'package:xynote/views/accounts_page.dart';
-import 'package:xynote/views/notes/notes_page.dart';
-
-import '../notes/notes_page.dart';
+import 'package:xynote/views/auth/providers/user_provider.dart';
+import 'package:xynote/views/auth/screens/sign_in_page.dart';
+import 'package:xynote/views/notes/screens/notes_page.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({ Key? key }) : super(key: key);

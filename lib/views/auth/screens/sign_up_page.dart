@@ -1,45 +1,73 @@
+import 'dart:io';
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
+import 'package:xynote/data/helper/shared_preferences.dart';
+import 'package:xynote/views/auth/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
 import 'package:xynote/data/services/database.dart';
-import 'package:xynote/views/auth/auth_fetch_page.dart';
-import 'package:xynote/views/auth/google_auth_fetch_page.dart';
-import 'package:xynote/views/auth/sign_up_page.dart';
+import 'package:xynote/views/accounts_page.dart';
+import 'package:xynote/views/auth/screens/google_auth_fetch_page.dart';
+import 'package:xynote/views/auth/screens/sign_in_page.dart';
 
-import '../../data/providers/user_provider.dart';
-import '../accounts_page.dart';
-
-class SignInPage extends StatefulWidget {
-  const SignInPage({ Key? key }) : super(key: key);
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({ Key? key }) : super(key: key);
 
   @override
-  State<SignInPage> createState() => _SignInPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _SignInPageState extends State<SignInPage> {
+class _SignUpPageState extends State<SignUpPage> {
 
   //------ VARIABLES ------//
   bool showPassword = false;
   final _formKey = GlobalKey<FormState>();
-  late Stream<QuerySnapshot> userStream;
   
+  TextEditingController _usernameTextEditingController = TextEditingController();
   TextEditingController _emailTextEditingController = TextEditingController();
   TextEditingController _passwordTextEditingController = TextEditingController();
+  TextEditingController _confirmPasswordTextEditingController = TextEditingController();
 
   AuthMethods authMethods = AuthMethods();
   DatabaseMethods databaseMethods = DatabaseMethods();
 
+  final picker = ImagePicker();
+  File? _image;
+  String imgUrl = '';
+
   //------ METHODS ------//
-  void signIn() async {
-    userStream = await databaseMethods.getUserInfoByEmail(_emailTextEditingController.text);                
-    authMethods.signInWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
+  void signUp() async {
+    if(_image != null) {
+      await uploadPic();
+    }
+
+    String uuid = Uuid().v4();
+
+    authMethods.signUpWithEmailAndPassword(_emailTextEditingController.text, _passwordTextEditingController.text)
       .then((value) {        
+        Map<String, dynamic> userMap = {
+          "email": _emailTextEditingController.text,
+          "username": _usernameTextEditingController.text,          
+          'imgUrl': imgUrl != '' ? imgUrl : '',
+          'uuid': uuid
+        };
+        databaseMethods.uploadUserInfo(userMap);
+        Provider.of<UserProvider>(context, listen: false).setEmail(_emailTextEditingController.text);
+        Provider.of<UserProvider>(context, listen: false).setUsername(_usernameTextEditingController.text);
+        Provider.of<UserProvider>(context, listen: false).setImageUrl(imgUrl);
+        SharedPref.saveLoggedInSharedPreference(true);
+        SharedPref.saveEmailSharedPreference(_emailTextEditingController.text);
+        SharedPref.saveUsernameSharedPreference(_usernameTextEditingController.text);
+        SharedPref.saveImgUrlSharedPreference(imgUrl != '' ? imgUrl : '');
+        
         Navigator.pushReplacement(context, PageTransition(
-          child: AuthFetchPage(userStream: userStream,),
+          child: AccountsPage(),
           type: PageTransitionType.rightToLeft
         ));
       });
@@ -52,7 +80,7 @@ class _SignInPageState extends State<SignInPage> {
         Provider.of<UserProvider>(context, listen: false).setUsername(value.additionalUserInfo!.profile!['given_name']);
         Provider.of<UserProvider>(context, listen: false).setImageUrl(value.additionalUserInfo!.profile!['picture']);
 
-        Stream<QuerySnapshot> userInfoSnapshot = await databaseMethods.getUserInfoByEmail(value.additionalUserInfo!.profile!['email']);
+        Stream<QuerySnapshot> userInfoSnapshot = await databaseMethods.getUserInfoByEmail(value.additionalUserInfo!.profile!['email']);           
         Navigator.pushReplacement(context, PageTransition(
           child: GoogleAuthFetchPage(
             userStream: userInfoSnapshot,
@@ -65,15 +93,40 @@ class _SignInPageState extends State<SignInPage> {
       });
   }
 
+  Future getImage() async {
+    // ignore: deprecated_member_use
+    PickedFile? pickedFile = await picker.getImage(source: ImageSource.gallery);
+    setState(() {
+      if(pickedFile != null) {
+        _image = File(pickedFile.path);
+      } else {
+        Fluttertoast.showToast(
+            msg: 'No Image Picked!',
+            textColor: Colors.white,
+            backgroundColor: Colors.black
+        );
+      }      
+    });
+  }
+
+  Future uploadPic() async {
+    final file = _image;
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference reference = storage.ref().child(file!.path);
+    await reference.putFile(file);
+    imgUrl = await reference.getDownloadURL();
+  }
+
 
   //------ UI -------//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // resizeToAvoidBottomInset: false,
       body: SingleChildScrollView(
         child: Container(
           width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,          
+          height: MediaQuery.of(context).size.height,        
           decoration: BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/Bg.PNG"),
@@ -85,15 +138,15 @@ class _SignInPageState extends State<SignInPage> {
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 64),
+              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 56),
               color: Colors.white.withOpacity(0.8),
               child: Form(
                 key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [              
+                  children: [
                     Container(
-                      child: Column(
+                      child: Column(                  
                         children: [
                           Container(
                             width: MediaQuery.of(context).size.width / 4,
@@ -112,6 +165,44 @@ class _SignInPageState extends State<SignInPage> {
                     Container(
                       child: Column(
                         children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CircleAvatar(                    
+                                backgroundImage: _image != null 
+                                    ? FileImage(_image!) 
+                                    : AssetImage("assets/images/profile_pic.jpg") as ImageProvider,
+                                backgroundColor: Colors.white,
+                                radius: 40,
+                              ),
+                              MaterialButton(
+                                onPressed: () => getImage(),
+                                child: Text("Add Image", style: TextStyle(color: Colors.white),),
+                                color: Colors.black,
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 8,),
+                          TextFormField(
+                            controller: _usernameTextEditingController,
+                            style: TextStyle(color: Colors.black, fontSize: 13),
+                            cursorColor: Colors.black,
+                            decoration: InputDecoration(
+                              labelText: "Username",
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                              prefixIcon: Image.asset("assets/icons/mail.png"),
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 12,),
                           TextFormField(
                             controller: _emailTextEditingController,
                             style: TextStyle(color: Colors.black, fontSize: 13),
@@ -160,78 +251,47 @@ class _SignInPageState extends State<SignInPage> {
                               ),
                             ),
                           ),
+                          SizedBox(height: 12,),
+                          TextFormField(
+                            controller: _confirmPasswordTextEditingController,
+                            style: TextStyle(color: Colors.black, fontSize: 13),
+                            cursorColor: Colors.black,
+                            obscureText: true,
+                            decoration: InputDecoration(
+                              labelText: "Confirm Password",
+                              labelStyle: TextStyle(color: Colors.black, fontSize: 14),
+                              prefixIcon: Image.asset("assets/icons/lock.png"),                  
+                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(5), 
+                                borderSide: BorderSide(color: Colors.black, width: 2.5)
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 16,),
                           SizedBox(
                             height: 40,
                             width: MediaQuery.of(context).size.width,
                             child: MaterialButton(
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
-                              onPressed: () => signIn(),
-                              child: Text("Sign In", style: TextStyle(color: Colors.white, fontSize: 18),),
+                              onPressed: () => signUp(),
+                              child: Text("Sign up", style: TextStyle(color: Colors.white, fontSize: 18),),
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 4,),
                           SizedBox(
                             height: 40,
                             width: MediaQuery.of(context).size.width,
                             child: TextButton(
                               onPressed: () => Navigator.pushReplacement(context, PageTransition(
-                                child: SignUpPage(),
+                                child: SignInPage(),
                                 type: PageTransitionType.bottomToTop
                               )),
-                              child: Text("Sign Up", style: TextStyle(color: Colors.black, fontSize: 18),)
-                            ),
-                          ),
-                          SizedBox(height: 16,),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                height: 2,
-                                width: MediaQuery.of(context).size.width / 3.5,
-                                color: Colors.black,
-                              ),
-                              Text("OR", style: TextStyle(color: Colors.black, fontSize: 26, fontFamily: 'RobotoSlabBold'),),
-                              Container(
-                                height: 2,
-                                width: MediaQuery.of(context).size.width / 3.5,                  
-                                color: Colors.black,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 16,),
-                          InkWell(
-                            onTap: () => googleSignIn(),
-                            child: Container(                      
-                              height: 40,
-                              width: MediaQuery.of(context).size.width,
-                              padding: EdgeInsets.symmetric(horizontal: 4),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(5),
-                                color: Colors.blue,
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    height: 34,
-                                    width: 34,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5)
-                                    ),
-                                    child: Center(
-                                      child: Image.asset("assets/images/google_logo.png", height: 30, width: 30,),
-                                    ),
-                                  ),
-                                  Text("Login With Google", style: TextStyle(color: Colors.white, fontSize: 18),),
-                                  Container(
-                                    height: 40,
-                                    width: 34,
-                                  )
-                                ],
-                              ), 
+                              child: Text("Sign in", style: TextStyle(color: Colors.black, fontSize: 18),)
                             ),
                           ),
                         ],

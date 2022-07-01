@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
-import 'package:xynote/data/providers/user_provider.dart';
+import 'package:xynote/views/auth/providers/user_provider.dart';
 import 'package:xynote/data/services/auth.dart';
-import 'package:xynote/views/auth/sign_in_page.dart';
+import 'package:xynote/views/auth/screens/sign_in_page.dart';
 
 import '../data/helper/shared_preferences.dart';
 
