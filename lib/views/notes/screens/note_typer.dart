@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:xynote/data/models/note_model.dart';
-import 'package:xynote/data/providers/notes_provider.dart';
+import 'package:xynote/views/notes/models/note_model.dart';
+import 'package:xynote/views/notes/providers/notes_provider.dart';
 
 class NoteTyper extends StatefulWidget {
   const NoteTyper({Key? key}) : super(key: key);
@@ -43,8 +43,8 @@ class _NoteTyperState extends State<NoteTyper> {
 
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
-          Note newNote = Note(content: noteController.text, createdAt: DateTime.now());
-          Provider.of<NotesProvider>(context, listen: false).pushNewNote(newNote);
+          NoteModel noteModel = NoteModel(content: noteController.text, createdAt: DateTime.now());
+          Provider.of<NotesProvider>(context, listen: false).pushNewNote(noteModel);
           await Future.delayed(Duration(seconds: 2));
           Navigator.pop(context);
         },

@@ -4,7 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 import 'package:xynote/data/helper/shared_preferences.dart';
 import 'package:xynote/views/auth/providers/user_provider.dart';
-import 'package:xynote/views/notes/notes_page.dart';
+import 'package:xynote/views/navigator_page/navigator_page.dart';
 
 class AuthFetchPage extends StatefulWidget {
   final Stream<QuerySnapshot> userStream;
@@ -37,7 +37,7 @@ class _AuthFetchPageState extends State<AuthFetchPage> {
             SharedPref.saveUsernameSharedPreference(documentSnapshot!['username']);
             SharedPref.saveImgUrlSharedPreference(documentSnapshot!['imgUrl']);
             
-            Navigator.pushReplacement(context, PageTransition(child: NotesPage(), type: PageTransitionType.rightToLeft));
+            Navigator.pushReplacement(context, PageTransition(child: NavigatorPage(), type: PageTransitionType.rightToLeft));
           });
 
           return Center(
